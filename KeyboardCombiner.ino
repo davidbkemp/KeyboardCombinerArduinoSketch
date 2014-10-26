@@ -6,8 +6,7 @@
 * In particular, it allows you to use foot pedals as Shift/Alt/Command/Control modifiers
 * for a keyboard.
 *
-* Runs on an Arduino that can act as a USB client
-* (Leonardo, and probably the Due, but I have only tested it with the Leonardo),
+* Runs on an Arduino that can act as a USB client (Leonardo or Due),
 * with the USB Host Shield 2 from Circuits at Home.
 * https://www.circuitsathome.com/products-page/arduino-shields
 *
@@ -22,6 +21,12 @@
 * This sketch was adapted from the USBHIDBootKbd example in the USB Host Shield 2 library.
 *
 * The code is released under the GNU General Public License.
+*/
+
+
+/*
+* If using the Arduino Due, you will need the following include:
+* #include <SPI.h>
 */
 
 #include <hidboot.h>

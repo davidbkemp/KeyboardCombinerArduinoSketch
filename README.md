@@ -8,9 +8,11 @@ on the keys of another keyboard.
 In particular, it allows you to use foot pedals as Shift/Alt/Command/Control modifiers
 for a keyboard.
 
-Runs on an Arduino that can act as a USB client
-(Leonardo, and probably the Due, but I have only tested it with the Leonardo),
-with the USB Host Shield 2 from Circuits at Home.
+Runs on an Arduino that can act as a USB client:
+ - Leonardo
+ - Due (yes, the shield plugs straight into the Due despite the voltage differences). If using the Due, then you must include the Arduino SPI library like so: ```#include <SPI.h>``` in your .ino file.
+
+Requires the USB Host Shield 2 from Circuits at Home.
 https://www.circuitsathome.com/products-page/arduino-shields
 
 It has only been tested using combinations of:
