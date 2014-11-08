@@ -6,6 +6,9 @@
 * In particular, it allows you to use foot pedals as Shift/Alt/Command/Control modifiers
 * for a keyboard.
 *
+* Supports a mouse, but does not support additional mouse buttons other than
+* the left, right, and middle buttons.
+*
 * Runs on an Arduino that can act as a USB client (Leonardo or Due),
 * with the USB Host Shield 2 from Circuits at Home.
 * https://www.circuitsathome.com/products-page/arduino-shields
@@ -53,14 +56,61 @@
 
 const boolean debug = false;
 boolean keyboardInitialized = false;
+boolean mouseInitialized = false;
 void pressKey(uint8_t key);
 void releaseKey(uint8_t key);
+void moveMouse(signed char x, signed char y);
+void mousePress(char button);
+void mouseRelease(char button);
 
 // Keep track of press/release events for every key.
 uint8_t keyPressCount[256];
 
 const uint8_t modifier_keys[] = {KEY_LEFT_CTRL, KEY_LEFT_SHIFT, KEY_LEFT_ALT, KEY_LEFT_GUI,
         KEY_RIGHT_CTRL, KEY_RIGHT_SHIFT, KEY_RIGHT_ALT, KEY_RIGHT_GUI};
+
+
+class MouseRptParser : public MouseReportParser
+{
+protected:
+	virtual void OnMouseMove	(MOUSEINFO *mi);
+	virtual void OnLeftButtonUp	(MOUSEINFO *mi);
+	virtual void OnLeftButtonDown	(MOUSEINFO *mi);
+	virtual void OnRightButtonUp	(MOUSEINFO *mi);
+	virtual void OnRightButtonDown	(MOUSEINFO *mi);
+	virtual void OnMiddleButtonUp	(MOUSEINFO *mi);
+	virtual void OnMiddleButtonDown	(MOUSEINFO *mi);
+};
+
+void MouseRptParser::OnMouseMove(MOUSEINFO *mi)
+{
+    moveMouse(mi->dX, mi->dY);
+};
+void MouseRptParser::OnLeftButtonUp	(MOUSEINFO *mi)
+{
+    mouseRelease(MOUSE_LEFT);
+};
+void MouseRptParser::OnLeftButtonDown	(MOUSEINFO *mi)
+{
+    mousePress(MOUSE_LEFT);
+};
+void MouseRptParser::OnRightButtonUp	(MOUSEINFO *mi)
+{
+    mouseRelease(MOUSE_RIGHT);
+};
+void MouseRptParser::OnRightButtonDown	(MOUSEINFO *mi)
+{
+    mousePress(MOUSE_RIGHT);
+};
+void MouseRptParser::OnMiddleButtonUp	(MOUSEINFO *mi)
+{
+    mouseRelease(MOUSE_MIDDLE);
+};
+void MouseRptParser::OnMiddleButtonDown	(MOUSEINFO *mi)
+{
+    mousePress(MOUSE_MIDDLE);
+};
+
 
 class KbdRptParser : public KeyboardReportParser
 {
@@ -188,6 +238,49 @@ void KbdRptParser::OnKeyUp(uint8_t mod, uint8_t key)
     }
 }
 
+void ensureMouseInitialized() {
+    if (!mouseInitialized) {
+        mouseInitialized = true;
+        if (debug) {
+          Serial.println("Initializing mouse");
+        } else {
+            Mouse.begin();
+        }
+    }
+}
+
+void moveMouse(int8_t x, int8_t y) {
+    ensureMouseInitialized();
+    if (debug) {
+        Serial.print("dx=");
+        Serial.print(x, DEC);
+        Serial.print(" dy=");
+        Serial.println(y, DEC);
+    } else {
+        Mouse.move(x, y, 0);
+    }
+}
+void mousePress(char button) {
+    ensureMouseInitialized();
+    if (debug) {
+        Serial.print("mouse button pressed: ");
+        Serial.println(button, DEC);
+    } else {
+        Mouse.press(button);
+    }
+}
+
+void mouseRelease(char button) {
+    ensureMouseInitialized();
+    if (debug) {
+        Serial.print("mouse button released: ");
+        Serial.println(button, DEC);
+    } else {
+        Mouse.release(button);
+    }
+}
+
+
 void pressKey(uint8_t key)
 {
     if (!keyboardInitialized) {
@@ -197,8 +290,8 @@ void pressKey(uint8_t key)
         } else {
           Keyboard.begin();
         }
-       
     }
+
     keyPressCount[key]++;
     if (keyPressCount[key] == 1) {
       if (debug) {
@@ -234,9 +327,11 @@ USBHub     hub7(&usb);
 
 HIDBoot<HID_PROTOCOL_KEYBOARD>    hidKeyboard1(&usb);
 HIDBoot<HID_PROTOCOL_KEYBOARD>    hidKeyboard2(&usb);
+HIDBoot<HID_PROTOCOL_MOUSE>       hidMouse(&usb);
 
 KbdRptParser reportParser1;
 KbdRptParser reportParser2;
+MouseRptParser mouseParser;
 
 void setup()
 {
@@ -257,6 +352,7 @@ void setup()
 
     hidKeyboard1.SetReportParser(0, (HIDReportParser*)&reportParser1);
     hidKeyboard2.SetReportParser(0, (HIDReportParser*)&reportParser2);
+    hidMouse.SetReportParser(0, (HIDReportParser*)&mouseParser);
 }
 
 void loop()
