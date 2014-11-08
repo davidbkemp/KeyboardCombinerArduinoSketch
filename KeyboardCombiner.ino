@@ -1,22 +1,27 @@
 /*
 * Arduino sketch: USB Keyboard combiner.
-* It combines the inputs from two keyboards, primarily to work around
+* It combines the inputs from up to three keyboards, primarily to work around
 * the way Mac computers do not allow the modifier keys of one keyboard to act
 * on the keys of another keyboard.
 * In particular, it allows you to use foot pedals as Shift/Alt/Command/Control modifiers
 * for a keyboard.
-*
-* Supports a mouse, but does not support additional mouse buttons other than
-* the left, right, and middle buttons.
 *
 * Runs on an Arduino that can act as a USB client (Leonardo or Due),
 * with the USB Host Shield 2 from Circuits at Home.
 * https://www.circuitsathome.com/products-page/arduino-shields
 *
 * It has only been tested using combinations of:
-*  - the standard Mac Keyboard
-*  - the Kinesis Freestyle 2 for Mac Keyboard
-*  - the Kinesis Savant Elite/USB 3 Pedal
+*  - Standard Mac Keyboard
+*  - Kinesis Freestyle 2 for Mac Keyboard
+*  - Kinesis Freestyle 2 (but you will need to swap control & command in
+*          the Keyboard configuration under system preferences if you wan the copy, paste etc. keys to work.
+*  - Kinesis Savant Elite/USB 3 Pedal
+*  - Microsoft wireless keyboard (mouse won't work without code modifications).
+*
+* NOTE: The following devices have been found to not work:
+* - Fragpedal Quad pedals
+* - LightIO keyboards
+*
 *
 * Relies on the USB Host Shield 2 library:
 * https://github.com/felis/USB_Host_Shield_2.0
