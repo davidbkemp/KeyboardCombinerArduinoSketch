@@ -325,13 +325,20 @@ USBHub     hub5(&usb);
 USBHub     hub6(&usb);
 USBHub     hub7(&usb);
 
+// Don't use the mouse or composite variation unless you can carefully connect them
+// the order they are are activated.
+// HIDBoot<HID_PROTOCOL_KEYBOARD | HID_PROTOCOL_MOUSE> hidComposite1(&usb);
 HIDBoot<HID_PROTOCOL_KEYBOARD>    hidKeyboard1(&usb);
 HIDBoot<HID_PROTOCOL_KEYBOARD>    hidKeyboard2(&usb);
-HIDBoot<HID_PROTOCOL_MOUSE>       hidMouse(&usb);
+HIDBoot<HID_PROTOCOL_KEYBOARD>    hidKeyboard3(&usb);
+// HIDBoot<HID_PROTOCOL_MOUSE>       hidMouse(&usb);
 
-KbdRptParser reportParser1;
-KbdRptParser reportParser2;
-MouseRptParser mouseParser;
+// KbdRptParser compositeKeyboardReportParser1;
+// MouseRptParser compositeMouseReportParser1;
+KbdRptParser keyboardReportParser1;
+KbdRptParser keyboardReportParser2;
+KbdRptParser keyboardReportParser3;
+// MouseRptParser mouseParser;
 
 void setup()
 {
@@ -350,9 +357,12 @@ void setup()
 
     delay( 200 );
 
-    hidKeyboard1.SetReportParser(0, (HIDReportParser*)&reportParser1);
-    hidKeyboard2.SetReportParser(0, (HIDReportParser*)&reportParser2);
-    hidMouse.SetReportParser(0, (HIDReportParser*)&mouseParser);
+//    hidComposite1.SetReportParser(0, (HIDReportParser*)&compositeKeyboardReportParser1);
+//    hidComposite1.SetReportParser(1, (HIDReportParser*)&compositeMouseReportParser1);
+    hidKeyboard1.SetReportParser(0, (HIDReportParser*)&keyboardReportParser1);
+    hidKeyboard2.SetReportParser(0, (HIDReportParser*)&keyboardReportParser2);
+    hidKeyboard3.SetReportParser(0, (HIDReportParser*)&keyboardReportParser3);
+//    hidMouse.SetReportParser(0, (HIDReportParser*)&mouseParser);
 }
 
 void loop()
