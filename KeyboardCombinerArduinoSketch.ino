@@ -63,49 +63,6 @@ uint8_t keyPressCount[256];
 const uint8_t modifier_keys[] = {KEY_LEFT_CTRL, KEY_LEFT_SHIFT, KEY_LEFT_ALT, KEY_LEFT_GUI,
         KEY_RIGHT_CTRL, KEY_RIGHT_SHIFT, KEY_RIGHT_ALT, KEY_RIGHT_GUI};
 
-
-class MouseRptParser : public MouseReportParser
-{
-protected:
-	virtual void OnMouseMove	(MOUSEINFO *mi);
-	virtual void OnLeftButtonUp	(MOUSEINFO *mi);
-	virtual void OnLeftButtonDown	(MOUSEINFO *mi);
-	virtual void OnRightButtonUp	(MOUSEINFO *mi);
-	virtual void OnRightButtonDown	(MOUSEINFO *mi);
-	virtual void OnMiddleButtonUp	(MOUSEINFO *mi);
-	virtual void OnMiddleButtonDown	(MOUSEINFO *mi);
-};
-
-void MouseRptParser::OnMouseMove(MOUSEINFO *mi)
-{
-    moveMouse(mi->dX, mi->dY);
-};
-void MouseRptParser::OnLeftButtonUp	(MOUSEINFO *mi)
-{
-    mouseRelease(MOUSE_LEFT);
-};
-void MouseRptParser::OnLeftButtonDown	(MOUSEINFO *mi)
-{
-    mousePress(MOUSE_LEFT);
-};
-void MouseRptParser::OnRightButtonUp	(MOUSEINFO *mi)
-{
-    mouseRelease(MOUSE_RIGHT);
-};
-void MouseRptParser::OnRightButtonDown	(MOUSEINFO *mi)
-{
-    mousePress(MOUSE_RIGHT);
-};
-void MouseRptParser::OnMiddleButtonUp	(MOUSEINFO *mi)
-{
-    mouseRelease(MOUSE_MIDDLE);
-};
-void MouseRptParser::OnMiddleButtonDown	(MOUSEINFO *mi)
-{
-    mousePress(MOUSE_MIDDLE);
-};
-
-
 class KbdRptParser : public KeyboardReportParser
 {
         uint8_t mapToAscii(uint8_t);
@@ -232,6 +189,82 @@ void KbdRptParser::OnKeyUp(uint8_t mod, uint8_t key)
     }
 }
 
+void pressKey(uint8_t key)
+{
+    if (!keyboardInitialized) {
+        keyboardInitialized = true;
+        if (debug) {
+          Serial.println("Initializing keyboard");
+        } else {
+          Keyboard.begin();
+        }
+    }
+
+    keyPressCount[key]++;
+    if (keyPressCount[key] == 1) {
+      if (debug) {
+        Serial.print("Press: ");
+        Serial.println(key, HEX);
+      } else {
+        Keyboard.press(key);
+      }
+    }
+};
+
+void releaseKey(uint8_t key)
+{
+    keyPressCount[key]--;
+    if (keyPressCount[key] == 0) {
+      if (debug) {
+        Serial.print("Release: ");
+        Serial.println(key, HEX);
+      } else {
+        Keyboard.release(key);
+      }
+    }
+};
+
+class MouseRptParser : public MouseReportParser
+{
+protected:
+	virtual void OnMouseMove	(MOUSEINFO *mi);
+	virtual void OnLeftButtonUp	(MOUSEINFO *mi);
+	virtual void OnLeftButtonDown	(MOUSEINFO *mi);
+	virtual void OnRightButtonUp	(MOUSEINFO *mi);
+	virtual void OnRightButtonDown	(MOUSEINFO *mi);
+	virtual void OnMiddleButtonUp	(MOUSEINFO *mi);
+	virtual void OnMiddleButtonDown	(MOUSEINFO *mi);
+};
+
+void MouseRptParser::OnMouseMove(MOUSEINFO *mi)
+{
+    moveMouse(mi->dX, mi->dY);
+};
+void MouseRptParser::OnLeftButtonUp	(MOUSEINFO *mi)
+{
+    mouseRelease(MOUSE_LEFT);
+};
+void MouseRptParser::OnLeftButtonDown	(MOUSEINFO *mi)
+{
+    mousePress(MOUSE_LEFT);
+};
+void MouseRptParser::OnRightButtonUp	(MOUSEINFO *mi)
+{
+    mouseRelease(MOUSE_RIGHT);
+};
+void MouseRptParser::OnRightButtonDown	(MOUSEINFO *mi)
+{
+    mousePress(MOUSE_RIGHT);
+};
+void MouseRptParser::OnMiddleButtonUp	(MOUSEINFO *mi)
+{
+    mouseRelease(MOUSE_MIDDLE);
+};
+void MouseRptParser::OnMiddleButtonDown	(MOUSEINFO *mi)
+{
+    mousePress(MOUSE_MIDDLE);
+};
+
 void ensureMouseInitialized() {
     if (!mouseInitialized) {
         mouseInitialized = true;
@@ -273,42 +306,6 @@ void mouseRelease(char button) {
         Mouse.release(button);
     }
 }
-
-
-void pressKey(uint8_t key)
-{
-    if (!keyboardInitialized) {
-        keyboardInitialized = true;
-        if (debug) {
-          Serial.println("Initializing keyboard");
-        } else {
-          Keyboard.begin();
-        }
-    }
-
-    keyPressCount[key]++;
-    if (keyPressCount[key] == 1) {
-      if (debug) {
-        Serial.print("Press: ");
-        Serial.println(key, HEX);
-      } else {
-        Keyboard.press(key);
-      }
-    }
-};
-
-void releaseKey(uint8_t key)
-{
-    keyPressCount[key]--;
-    if (keyPressCount[key] == 0) {
-      if (debug) {
-        Serial.print("Release: ");
-        Serial.println(key, HEX);
-      } else {
-        Keyboard.release(key);
-      }
-    }
-};
 
 USB        usb;
 USBHub     hub(&usb);
