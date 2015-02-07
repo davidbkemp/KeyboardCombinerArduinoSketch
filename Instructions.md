@@ -22,10 +22,15 @@ The hardware is a lot easier to assemble than it first looks. The exposed electr
 Assuming you already have pedals and a keyboard (more on those in a moment), all you need to purchase is:
 
 - One Arduino Leonardo (with headers): http://arduino.cc/en/Main/ArduinoBoardLeonardo
+
 ![Arduino Leonardo](http://davidbkemp.github.io/KeyboardCombinerArduinoSketch/Leonardo.JPG)
+
 - One Circuits At Home USB Host Shield 2 (Assembled): http://www.circuitsathome.com/products-page/arduino-shields
+
 ![USB Host Shield](http://davidbkemp.github.io/KeyboardCombinerArduinoSketch/UsbHostShield.JPG)
+
 - One Micro B USB cable (unfortunately they don't normally come with the Arduino).
+
 ![Micro B USB Cable](http://davidbkemp.github.io/KeyboardCombinerArduinoSketch/Cable.JPG)
 
 Make sure you purchase a Leonardo model Arduino. Currently, only the Leonardo, the Due, and the Micro can act as USB clients.  The Due is bigger and more expensive than the Leonardo, and the makers of the USB shield do not guarantee that the shield will work with the Due without some fiddly modifications.  The Micro is smaller, and I have no idea if it will work with any of the Circuits At Home USB shields.
