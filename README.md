@@ -2,6 +2,9 @@ KeyboardCombinerArduinoSketch
 =============================
 
 Arduino sketch: USB Keyboard combiner.
+
+Detailed instructions: https://github.com/davidbkemp/KeyboardCombinerArduinoSketch/blob/master/Instructions.md
+
 It combines the inputs from up to three keyboards, primarily to work around
 the way Mac computers do not allow the modifier keys of one keyboard to act
 on the keys of another keyboard.
@@ -22,5 +25,4 @@ This sketch was adapted from the USBHIDBootKbd example in the USB Host Shield 2 
 
 The code is released under the GNU General Public License.
 
-For more details see the wiki:
-https://github.com/davidbkemp/KeyboardCombinerArduinoSketch/wiki
+
