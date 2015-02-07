@@ -4,6 +4,8 @@ This article describes how you can use foot pedals as shift, alt, control, and c
 
 Some people, myself included, like to use foot pedals that have been configured to act as shift, alt, control, and command "modifier keys". I find it reduces the strain on the tendons and nerves in my left arm. It even makes it possible to use a computer with one hand. Unfortunately, on  Apple computers, the modifier keys of one device have no effect on the keys pressed on another. This article describes a solution to this problem that involves a little gadget I call a "keyboard combiner".
 
+If you use a Windows PC or a Linux computer, then you should find that you can use your pedals without a keyboard combiner and the remainder of this article does not apply to you.
+
 Fortunately, it is quite easy to make a keyboard combiner by plugging together a couple of components that you can purchase for about $60 US Dollars.  No soldering or programming is required on your part. The trickiest part is uploading the software onto the gadget and constructing an (optional) enclosure for it.
 
 Once you have created your keyboard combiner, you can plug it into any Apple computer and immediately start using it without having to install or configure anything.
