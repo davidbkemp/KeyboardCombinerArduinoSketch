@@ -20,17 +20,16 @@
 * The code is released under the GNU General Public License.
 */
 
-
-/*
-* If using the Arduino Due, you will need the following include:
-* #include <SPI.h>
-*/
+#include "Keyboard.h"
+#include "Mouse.h"
 
 #include <hidboot.h>
 #include <usbhub.h>
-// Satisfy IDE, which only needs to see the include statment in the ino.
+
+// Satisfy the IDE, which needs to see the include statment in the ino too.
 #ifdef dobogusinclude
 #include <spi4teensy3.h>
+#include <SPI.h>
 #endif
 
 #define UHS_HID_BOOT_KEY_MAC_RETURN 0x28
@@ -48,7 +47,7 @@
 #define UHS_HID_BOOT_KEY_CAPS       0x39
 
 
-const boolean debug = false;
+const boolean debug = true;
 boolean keyboardInitialized = false;
 boolean mouseInitialized = false;
 void pressKey(uint8_t key);
@@ -67,40 +66,40 @@ const uint8_t modifier_keys[] = {KEY_LEFT_CTRL, KEY_LEFT_SHIFT, KEY_LEFT_ALT, KE
 class MouseRptParser : public MouseReportParser
 {
 protected:
-	virtual void OnMouseMove	(MOUSEINFO *mi);
-	virtual void OnLeftButtonUp	(MOUSEINFO *mi);
-	virtual void OnLeftButtonDown	(MOUSEINFO *mi);
-	virtual void OnRightButtonUp	(MOUSEINFO *mi);
-	virtual void OnRightButtonDown	(MOUSEINFO *mi);
-	virtual void OnMiddleButtonUp	(MOUSEINFO *mi);
-	virtual void OnMiddleButtonDown	(MOUSEINFO *mi);
+  void OnMouseMove  (MOUSEINFO *mi);
+  void OnLeftButtonUp (MOUSEINFO *mi);
+  void OnLeftButtonDown (MOUSEINFO *mi);
+  void OnRightButtonUp  (MOUSEINFO *mi);
+  void OnRightButtonDown  (MOUSEINFO *mi);
+  void OnMiddleButtonUp (MOUSEINFO *mi);
+  void OnMiddleButtonDown (MOUSEINFO *mi);
 };
 
 void MouseRptParser::OnMouseMove(MOUSEINFO *mi)
 {
     moveMouse(mi->dX, mi->dY);
 };
-void MouseRptParser::OnLeftButtonUp	(MOUSEINFO *mi)
+void MouseRptParser::OnLeftButtonUp (MOUSEINFO *mi)
 {
     mouseRelease(MOUSE_LEFT);
 };
-void MouseRptParser::OnLeftButtonDown	(MOUSEINFO *mi)
+void MouseRptParser::OnLeftButtonDown (MOUSEINFO *mi)
 {
     mousePress(MOUSE_LEFT);
 };
-void MouseRptParser::OnRightButtonUp	(MOUSEINFO *mi)
+void MouseRptParser::OnRightButtonUp  (MOUSEINFO *mi)
 {
     mouseRelease(MOUSE_RIGHT);
 };
-void MouseRptParser::OnRightButtonDown	(MOUSEINFO *mi)
+void MouseRptParser::OnRightButtonDown  (MOUSEINFO *mi)
 {
     mousePress(MOUSE_RIGHT);
 };
-void MouseRptParser::OnMiddleButtonUp	(MOUSEINFO *mi)
+void MouseRptParser::OnMiddleButtonUp (MOUSEINFO *mi)
 {
     mouseRelease(MOUSE_MIDDLE);
 };
-void MouseRptParser::OnMiddleButtonDown	(MOUSEINFO *mi)
+void MouseRptParser::OnMiddleButtonDown (MOUSEINFO *mi)
 {
     mousePress(MOUSE_MIDDLE);
 };
@@ -112,9 +111,9 @@ class KbdRptParser : public KeyboardReportParser
         void PrintKey(uint8_t mod, uint8_t key);
 
 protected:
-        virtual void OnControlKeysChanged(uint8_t before, uint8_t after);
-        virtual void OnKeyDown(uint8_t mod, uint8_t key);
-        virtual void OnKeyUp(uint8_t mod, uint8_t key);
+        void OnControlKeysChanged(uint8_t before, uint8_t after);
+        void OnKeyDown(uint8_t mod, uint8_t key);
+        void OnKeyUp(uint8_t mod, uint8_t key);
 };
 
 // Adapted from KeyboardReportParser::OemToAscii
@@ -207,7 +206,7 @@ void KbdRptParser::OnControlKeysChanged(uint8_t before, uint8_t after) {
           beforeMod.bmRightCtrl, beforeMod.bmRightShift, beforeMod.bmRightAlt, beforeMod.bmRightGUI};
     uint8_t allAfter[] = {afterMod.bmLeftCtrl, afterMod.bmLeftShift, afterMod.bmLeftAlt, afterMod.bmLeftGUI,
           afterMod.bmRightCtrl, afterMod.bmRightShift, afterMod.bmRightAlt, afterMod.bmRightGUI};
-    
+
     for(int i = 0; i < 8; i++) {
       if (allBefore[i] != allAfter[i]) {
         if (allAfter[i]) {
@@ -315,17 +314,17 @@ USBHub     hub(&usb);
 USBHub     hub2(&usb);
 USBHub     hub3(&usb);
 USBHub     hub4(&usb);
-USBHub     hub5(&usb);
-USBHub     hub6(&usb);
-USBHub     hub7(&usb);
+//USBHub     hub5(&usb);
+//USBHub     hub6(&usb);
+//USBHub     hub7(&usb);
 
 // Don't use the mouse or composite variation unless you can carefully connect them
 // the order they are are activated.
-// HIDBoot<HID_PROTOCOL_KEYBOARD | HID_PROTOCOL_MOUSE> hidComposite1(&usb);
-HIDBoot<HID_PROTOCOL_KEYBOARD>    hidKeyboard1(&usb);
-HIDBoot<HID_PROTOCOL_KEYBOARD>    hidKeyboard2(&usb);
-HIDBoot<HID_PROTOCOL_KEYBOARD>    hidKeyboard3(&usb);
-// HIDBoot<HID_PROTOCOL_MOUSE>       hidMouse(&usb);
+// HIDBoot<USB_HID_PROTOCOL_KEYBOARD | USB_HID_PROTOCOL_MOUSE> hidComposite1(&usb);
+HIDBoot<USB_HID_PROTOCOL_KEYBOARD>    hidKeyboard1(&usb);
+HIDBoot<USB_HID_PROTOCOL_KEYBOARD>    hidKeyboard2(&usb);
+HIDBoot<USB_HID_PROTOCOL_KEYBOARD>    hidKeyboard3(&usb);
+// HIDBoot<USB_HID_PROTOCOL_MOUSE>       hidMouse(&usb);
 
 // KbdRptParser compositeKeyboardReportParser1;
 // MouseRptParser compositeMouseReportParser1;
@@ -339,10 +338,12 @@ void setup()
     for (int i = 0; i < 256; i++) {
       keyPressCount[i] = 0;
     }
-  
+
     if (debug) {
         Serial.begin( 115200 );
+#if !defined(__MIPSEL__)
         while (!Serial); // Wait for serial port to connect - used on Leonardo, Teensy and other boards with built-in USB CDC serial connection
+#endif
         Serial.println("Started");
     }
     if (usb.Init() == -1 && debug) {
@@ -351,12 +352,17 @@ void setup()
 
     delay( 200 );
 
-//    hidComposite1.SetReportParser(0, (HIDReportParser*)&compositeKeyboardReportParser1);
-//    hidComposite1.SetReportParser(1, (HIDReportParser*)&compositeMouseReportParser1);
-    hidKeyboard1.SetReportParser(0, (HIDReportParser*)&keyboardReportParser1);
-    hidKeyboard2.SetReportParser(0, (HIDReportParser*)&keyboardReportParser2);
-    hidKeyboard3.SetReportParser(0, (HIDReportParser*)&keyboardReportParser3);
-//    hidMouse.SetReportParser(0, (HIDReportParser*)&mouseParser);
+//    hidComposite1.SetReportParser(0, &compositeKeyboardReportParser1);
+//    hidComposite1.SetReportParser(1, &compositeMouseReportParser1);
+    hidKeyboard1.SetReportParser(0, &keyboardReportParser1);
+    hidKeyboard2.SetReportParser(0, &keyboardReportParser2);
+    hidKeyboard3.SetReportParser(0, &keyboardReportParser3);
+//    hidMouse.SetReportParser(0, &mouseParser);
+
+    if (debug) {
+        Serial.println("Set the report parsers");
+    }
+
 }
 
 void loop()
