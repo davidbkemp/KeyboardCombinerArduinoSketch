@@ -47,7 +47,7 @@
 #define UHS_HID_BOOT_KEY_CAPS       0x39
 
 
-const boolean debug = true;
+const boolean debug = false;
 boolean keyboardInitialized = false;
 boolean mouseInitialized = false;
 void pressKey(uint8_t key);

@@ -1,3 +1,6 @@
+** WARNING. THE LATEST USB HOST SHIELD 2 LIBRARY NO LONGER SEEMS TO WORK WITH SOME APPLE BRANDED KEYBOARDS,
+NOR DOES IT WORK WITH THE KINESIS FOOT PEDALS ANY MORE.**
+
 # Using Foot Pedals for Shift, Alt, Command, and Control on a Mac
 
 This article describes how you can use foot pedals as shift, alt, control, and command "modifier keys" on an Apple Mac.
@@ -27,7 +30,10 @@ Assuming you already have pedals and a keyboard (more on those in a moment), all
 
 ![Arduino Leonardo](http://davidbkemp.github.io/KeyboardCombinerArduinoSketch/Leonardo.JPG)
 
-- One Circuits At Home USB Host Shield 2 (Assembled): http://www.circuitsathome.com/products-page/arduino-shields
+Unfortunately, the Leonardo has been discontinued.
+I believe that it should work with a Zero: https://www.arduino.cc/en/Main/ArduinoBoardZero
+
+- One USB Host Shield 2 from TKJ Electronics: http://shop.tkjelectronics.dk/product_info.php?cPath=22&products_id=43
 
 ![USB Host Shield](http://davidbkemp.github.io/KeyboardCombinerArduinoSketch/UsbHostShield.JPG)
 
@@ -35,13 +41,10 @@ Assuming you already have pedals and a keyboard (more on those in a moment), all
 
 ![Micro B USB Cable](http://davidbkemp.github.io/KeyboardCombinerArduinoSketch/Cable.JPG)
 
-Make sure you purchase a Leonardo model Arduino. Currently, only the Leonardo, the Due, and the Micro can act as USB clients.  The Due is bigger and more expensive than the Leonardo, and the makers of the USB shield do not guarantee that the shield will work with the Due without some fiddly modifications.  The Micro is smaller, and I have no idea if it will work with any of the Circuits At Home USB shields.
-
-So I highly recommend that you buy the Leonardo.
 
 Two more warnings. Unless you actually enjoy soldering stuff:
 
-- make sure that you purchase the Arduino Leonardo with "headers"
+- make sure that you purchase the Arduino with "headers"
 - and make sure you purchase a fully assembled USB Host shield
 
 The fully assembled USB Host Shield has metal pins that plug straight into the "headers" of the Arduino.  It is fairly obvious which way around the shield needs to be oriented relative to the Arduino. You should find that they plug together quite snugly to the point where none of the pins are exposed.  Take care not to bend the pins, especially if/when you ever pull them apart again.
@@ -141,10 +144,10 @@ I would love to hear about any enhancements you make. Some that I am hoping to t
 
 ## Tested Devices
 I have found the following keyboards and pedals work with the keyboard combiner with the exception of some of the special keys such as those for volume control etc. Please let me know how you go with other devices. 
-- Apple brand keyboard (wired, not Bluetooth)
-- Kinesis Freestyle keyboard for Mac: https://www.kinesis-ergo.com/shop/freestyle2-for-mac/
+- Apple brand keyboard (wired, not Bluetooth)  ** NO LONGER SEEMS TO WORK WITH THE LATEST USB HOST SHIELD LIBRARY **
+- Kinesis Freestyle keyboard for Mac: https://www.kinesis-ergo.com/shop/freestyle2-for-mac/  ** NEEDS RETESTING WITH THE LATEST USB HOST SHIELD LIBRARY **
 - Kinesis Freestyle keyboard for PC (except that the special copy, paste etc keys won't work unless you change the mapping of the control and command keys in system preferences, and also the number pad keys will always be translated to numbers as the num-lock key is ignored): https://www.kinesis-ergo.com/shop/freestyle2/
-- Kinesis Savant Elite Triple Foot Pedals: https://www.kinesis-ergo.com/shop/savant-elite-3-pedal-3/
+- Kinesis Savant Elite Triple Foot Pedals: https://www.kinesis-ergo.com/shop/savant-elite-3-pedal-3/  ** NO LONGER SEEMS TO WORK WITH THE LATEST USB HOST SHIELD LIBRARY **
 - Microsoft Wireless Comfort Desktop 5000 (except that the mouse won't work without some fiddly changes to the code, and also the number pad keys will always be translated to numbers as the num-lock key is ignore): http://www.microsoft.com/hardware/en-au/p/wireless-comfort-desktop-5000
 
 ## Devices that don't work
