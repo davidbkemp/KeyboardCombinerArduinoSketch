@@ -3,9 +3,6 @@ KeyboardCombinerArduinoSketch
 
 Arduino sketch: USB Keyboard combiner.
 
-** WARNING. THE LATEST USB HOST SHIELD 2 LIBRARY NO LONGER SEEMS TO WORK WITH SOME APPLE BRANDED KEYBOARDS,
-NOR DOES IT WORK WITH THE KINESIS FOOT PEDALS ANY MORE.**
-
 Detailed instructions: https://github.com/davidbkemp/KeyboardCombinerArduinoSketch/blob/master/Instructions.md
 
 It combines the inputs from up to three keyboards, primarily to work around

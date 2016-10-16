@@ -1,6 +1,3 @@
-** WARNING. THE LATEST USB HOST SHIELD 2 LIBRARY NO LONGER SEEMS TO WORK WITH SOME APPLE BRANDED KEYBOARDS,
-NOR DOES IT WORK WITH THE KINESIS FOOT PEDALS ANY MORE.**
-
 # Using Foot Pedals for Shift, Alt, Command, and Control on a Mac
 
 This article describes how you can use foot pedals as shift, alt, control, and command "modifier keys" on an Apple Mac.
@@ -144,10 +141,10 @@ I would love to hear about any enhancements you make. Some that I am hoping to t
 
 ## Tested Devices
 I have found the following keyboards and pedals work with the keyboard combiner with the exception of some of the special keys such as those for volume control etc. Please let me know how you go with other devices. 
-- Apple brand keyboard (wired, not Bluetooth)  ** NO LONGER SEEMS TO WORK WITH THE LATEST USB HOST SHIELD LIBRARY **
-- Kinesis Freestyle keyboard for Mac: https://www.kinesis-ergo.com/shop/freestyle2-for-mac/  ** NEEDS RETESTING WITH THE LATEST USB HOST SHIELD LIBRARY **
+- Apple brand keyboard (wired, not Bluetooth)
+- Kinesis Freestyle keyboard for Mac: https://www.kinesis-ergo.com/shop/freestyle2-for-mac/
 - Kinesis Freestyle keyboard for PC (except that the special copy, paste etc keys won't work unless you change the mapping of the control and command keys in system preferences, and also the number pad keys will always be translated to numbers as the num-lock key is ignored): https://www.kinesis-ergo.com/shop/freestyle2/
-- Kinesis Savant Elite Triple Foot Pedals: https://www.kinesis-ergo.com/shop/savant-elite-3-pedal-3/  ** NO LONGER SEEMS TO WORK WITH THE LATEST USB HOST SHIELD LIBRARY **
+- Kinesis Savant Elite Triple Foot Pedals: https://www.kinesis-ergo.com/shop/savant-elite-3-pedal-3/
 - Microsoft Wireless Comfort Desktop 5000 (except that the mouse won't work without some fiddly changes to the code, and also the number pad keys will always be translated to numbers as the num-lock key is ignore): http://www.microsoft.com/hardware/en-au/p/wireless-comfort-desktop-5000
 
 ## Devices that don't work

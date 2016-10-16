@@ -314,9 +314,9 @@ USBHub     hub(&usb);
 USBHub     hub2(&usb);
 USBHub     hub3(&usb);
 USBHub     hub4(&usb);
-//USBHub     hub5(&usb);
-//USBHub     hub6(&usb);
-//USBHub     hub7(&usb);
+USBHub     hub5(&usb);
+USBHub     hub6(&usb);
+USBHub     hub7(&usb);
 
 // Don't use the mouse or composite variation unless you can carefully connect them
 // the order they are are activated.
