@@ -13,9 +13,9 @@ for a keyboard.
 
 Runs on an Arduino that can act as a USB client.
 Note that this limits the models of Arduino that may be used.
+I have tested it on the Leonardo and Due.
 It will **not** work with a Uno.
-I have tested it on the Leonardo and Due, but they have been discontinued.
-I believe it should work with the Zero (please let me know if you try it).
+It does not yet work on an Aruduino Zero as the USB Host Shield library does not yet support the Zero.
 
 Requires the USB Host Shield 2 from TKJ Electronics.
 http://shop.tkjelectronics.dk/product_info.php?cPath=22&products_id=43
