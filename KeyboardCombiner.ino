@@ -309,9 +309,9 @@ void releaseKey(uint8_t key)
     }
 };
 
-// May need to declare extra USB hubs, but too many and it no longer works.
 USB        usb;
 USBHub     hub(&usb);
+USBHub     hub2(&usb);
 
 // Don't use the mouse or composite variation unless you can carefully connect them
 // the order they are are activated.
