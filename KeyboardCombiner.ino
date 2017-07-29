@@ -309,14 +309,9 @@ void releaseKey(uint8_t key)
     }
 };
 
+// May need to declare extra USB hubs, but too many and it no longer works.
 USB        usb;
 USBHub     hub(&usb);
-USBHub     hub2(&usb);
-USBHub     hub3(&usb);
-USBHub     hub4(&usb);
-USBHub     hub5(&usb);
-USBHub     hub6(&usb);
-USBHub     hub7(&usb);
 
 // Don't use the mouse or composite variation unless you can carefully connect them
 // the order they are are activated.
@@ -369,4 +364,3 @@ void loop()
 {
     usb.Task();
 }
-
