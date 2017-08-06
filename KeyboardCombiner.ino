@@ -310,8 +310,11 @@ void releaseKey(uint8_t key)
 };
 
 USB        usb;
+
+// I have had mixed success with more than one USB hub.
+// This only works if there is one hub, including any built-in keyboard hubs.
 USBHub     hub(&usb);
-USBHub     hub2(&usb);
+// USBHub     hub2(&usb);
 
 // Don't use the mouse or composite variation unless you can carefully connect them
 // the order they are are activated.
