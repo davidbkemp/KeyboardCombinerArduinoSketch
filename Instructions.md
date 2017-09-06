@@ -27,9 +27,6 @@ Assuming you already have pedals and a keyboard (more on those in a moment), all
 
 ![Arduino Leonardo](http://davidbkemp.github.io/KeyboardCombinerArduinoSketch/Leonardo.JPG)
 
-Unfortunately, the Leonardo has been discontinued.
-I believe that it should work with a Zero: https://www.arduino.cc/en/Main/ArduinoBoardZero
-
 - One USB Host Shield 2 from TKJ Electronics: http://shop.tkjelectronics.dk/product_info.php?cPath=22&products_id=43
 
 ![USB Host Shield](http://davidbkemp.github.io/KeyboardCombinerArduinoSketch/UsbHostShield.JPG)
