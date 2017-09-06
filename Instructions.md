@@ -58,21 +58,19 @@ Once you are ready:
 
 - Download and install the Arduino IDE: http://arduino.cc/en/Main/Software (The first time you run the IDE you may be asked to install Java.  If you are on a Mac and have trouble with the Java install, you may need to use Apple's official Java for OS X: http://support.apple.com/kb/DL1572 -- search Apple's website for the most recent Java download)
 - Install the USB Host Shield 2 library: https://github.com/felis/USB_Host_Shield_2.0 :
-
- - Download https://github.com/felis/USB_Host_Shield_2.0/archive/master.zip
- - In the Arduino IDE, select "Sketch -> Import Library... -> Add Library..." and select the downloaded zip file.
+  - Download https://github.com/felis/USB_Host_Shield_2.0/archive/master.zip
+  - In the Arduino IDE, select "Sketch -> Import Library... -> Add Library..." and select the downloaded zip file.
 
 - Upload the keyboard combiner code:
-
- - Open a new sketch window in the Arduino IDE: "File -> New" 
- - Paste the contents of KeyboardCombiner.ino into this sketch window (replacing what is already there if anything): https://raw.githubusercontent.com/davidbkemp/KeyboardCombinerArduinoSketch/master/KeyboardCombiner.ino
- - Select the correct Arduino board: "Tools -> Board -> Arduino Leonardo"
- - Verify the sketch: "Sketch -> Verify/Compile" (if using an Arduino Due, then uncomment the line that includes the SPI.h library)
- - If the Arduino is plugged in then unplug it.
- - Note what serial ports are currently in use: "Tools -> Serial Port"
- - Connect the Arduino to a USB port.
- - Select one of the newly listed serial ports under "Tools -> Serial Port"
- - Upload the sketch "File -> Upload"
+  - Open a new sketch window in the Arduino IDE: "File -> New" 
+  - Paste the contents of KeyboardCombiner.ino into this sketch window (replacing what is already there if anything): https://raw.githubusercontent.com/davidbkemp/KeyboardCombinerArduinoSketch/master/KeyboardCombiner.ino
+  - Select the correct Arduino board: "Tools -> Board -> Arduino Leonardo"
+  - Verify the sketch: "Sketch -> Verify/Compile" (if using an Arduino Due, then uncomment the line that includes the SPI.h library)
+  - If the Arduino is plugged in then unplug it.
+  - Note what serial ports are currently in use: "Tools -> Serial Port"
+  - Connect the Arduino to a USB port.
+  - Select one of the newly listed serial ports under "Tools -> Serial Port"
+  - Upload the sketch "File -> Upload"
 
 ## Usage
 The keyboard combiner assumes that your pedals have been configured to generate the desired shift, alt, control, and/or command modifier key presses (more on this in a moment).
