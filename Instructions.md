@@ -17,6 +17,8 @@ The Arduino used in the keyboard combiner has a fuse that should prevent damage 
 
 While I find foot pedals reduce the strain on my left arm and wrist tendons, I still need to be extremely careful with posture, have frequent breaks, and limit the total amount of typing I do per day. You may find that foot pedals do not help with your particular problems; they may even exacerbate your particular problems.
 
+See more warnings under the **Usage** section below.
+
 ## The Hardware
 
 The hardware is a lot easier to assemble than it first looks. The exposed electronics make these look much more scary than they really are. They are normally purchased by electronics enthusiasts but, I promise, the closest thing to "doing electronics" you need to do is the ten seconds it takes to simply plug two things together.
@@ -50,9 +52,9 @@ The Arduino cannot do anything until some software has been uploaded onto it.  Y
 
 You need to use a computer to upload the software to the Arduino. It does not have to be the same computer on which you plan to use it. It does not even have to be an Apple computer.
 
-As mentioned, uploading the software to the Arduino is a bit fiddly. Remember, you only have to do this once, and so you could always find a friendly geek to do it for you. If you plan to do it yourself, then you should start by reading the "Getting Started" pages for the Arduino: http://arduino.cc/en/Guide/HomePage
+As mentioned, uploading the software to the Arduino is a bit fiddly. Fortunately, you only have to do this once. Start by reading the "Getting Started" pages for the Arduino: http://arduino.cc/en/Guide/HomePage
 
-Once you are ready (or found a geek friend to give you a hand):
+Once you are ready:
 
 - Download and install the Arduino IDE: http://arduino.cc/en/Main/Software (The first time you run the IDE you may be asked to install Java.  If you are on a Mac and have trouble with the Java install, you may need to use Apple's official Java for OS X: http://support.apple.com/kb/DL1572 -- search Apple's website for the most recent Java download)
 - Install the USB Host Shield 2 library: https://github.com/felis/USB_Host_Shield_2.0 :
@@ -75,22 +77,25 @@ Once you are ready (or found a geek friend to give you a hand):
 ## Usage
 The keyboard combiner assumes that your pedals have been configured to generate the desired shift, alt, control, and/or command modifier key presses (more on this in a moment).
 
-If your keyboard has a USB port, then the simplest arrangement is to:
-- Plug the pedals into the keyboard
-- Plug the keyboard into the USB Host shield
-- Plug the Arduino into the computer.
+You need to:
+- Connect the Arduino to the computer
+- Connect the keyboard and pedals to the USB Host Shield via a USB hub
 
-If your keyboard does not have a USB port, or it is inconvenient to use, then you will need to plug the keyboard and pedals into a USB hub:
+**WARNING**: Some updates to the host shield software seem to have made this much more fiddly. I am currently finding that I need to plug everything in this specific order or the pedals have no effect on the keys:
+- Arduino to USB port on the computer
+- USB hub to USB host shield
+- Pedals to USB hub
+- Wait ten seconds
+- Keyboard to USB hub
+- Wait another ten seconds before use.
 
-- Plug the keyboard and pedals into the USB hub
-- Plug the USB hub into the USB Host shield
-- Plug the Arduino into the computer.
+I used to be able to connect the pedals via the USB port in the keyboard, but this sadly no longer seems to work.
 
 Also, here is an important quote from the "Getting Started" pages for the Leonardo:
 
 > The first time you plug a Leonardo or Micro into a Mac, the "Keyboard Setup Assistant" will launch. There's nothing to configure with the Leonardo, so you can close this dialogue by clicking the red button in the top left of the window.
 
-It takes a few seconds for the keyboard combiner to "start up". The lights on your keyboard (caps-lock, num-lock, etc) should flash once to indicate that it is ready.
+It takes a few seconds for the keyboard combiner to "start up".
 
 ## The Pedals
 The keyboard combiner requires that the pedals are configured to act as the shift, alt, etc modifier keys you desire. This will typically involve the one-off use of software that should come with your pedals. Unfortunately, this may require access to a Windows computer to do this initial configuration.
