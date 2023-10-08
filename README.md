@@ -1,6 +1,11 @@
 KeyboardCombinerArduinoSketch
 =============================
 
+Warning: It has been many years since I touched this.
+I don't know if the USB host shield is still available or is still compatible with this code.
+Also, the old shield and software doesn't seem to work with the latest foot pedals from Kinesis.
+I advise looking for other solutions.
+
 Arduino sketch: USB Keyboard combiner.
 
 Detailed instructions: https://github.com/davidbkemp/KeyboardCombinerArduinoSketch/blob/master/Instructions.md
